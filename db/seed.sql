@@ -1,9 +1,9 @@
 -- DEPARTMENT VALUES TO INSERT
-INSERT INTO department (id, departmentName)
+INSERT INTO department (id, departmentName);
 VALUES ('Engineering', 'Finance', 'Legal', 'Sales');
 
 -- ROLE VALUES TO INSERT
-INSERT INTO role (title, salary, department_id)
+INSERT INTO role (title, salary, department_id);
 VALUES 
 -- engineering
 ("Senior Engineer", 250000, 1),
@@ -20,10 +20,10 @@ VALUES
 -- sales
 ("Administration", 100000, 4),
 ("Operations manager", 145000, 4),
-("Success Planner", 90000, 4)
+("Success Planner", 90000, 4);
 
 -- EMPLOYEE VALUES TO INSERT
-INSERT INTO employee (first_name, last_name, role_id, manager_id)
+INSERT INTO employee (first_name, last_name, role_id, manager_id);
 VALUES 
 ('Adam', 'Kin', 1, NULL),
 ('John', 'Doe', 1, 1),
@@ -36,6 +36,6 @@ VALUES
 ('Bradley', 'Baker', 3, NULL),
 ('Jessie', 'Flower', 4, 7),
 ('Grey', 'DeListle', 4, 5),
-('Olivia', 'Hack', 4, NULL)
+('Olivia', 'Hack', 4, NULL);
 
        

@@ -21,3 +21,5 @@ const db = mysql.createConnection(
     },
     console.log(`Connected to the employeetracker_db database.`)
   );
+
+  module.exports = db;
