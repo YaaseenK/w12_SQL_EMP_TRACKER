@@ -9,15 +9,3 @@ const app = express();
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
-// Connect to database
-const db = mysql.createConnection(
-  {
-    host: 'localhost',
-    // MySQL username,
-    user: 'root',
-    // MySQL password
-    password: 'password',
-    database: 'employeetracker_db'
-  },
-  console.log(`Connected to the employeetracker_db database.`)
-);
