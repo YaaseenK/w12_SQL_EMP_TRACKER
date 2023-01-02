@@ -47,7 +47,11 @@ prompMenu();
 
 // view all employes code 
 const viewAllEmployees = () => {
-    console.log('List of emp');
+    db.query(`SELECT * FROM employee`, (err, results) => {
+        if (err) throw err;
+        console.table(results);
+        mainMenu();
+    });
 }
 
 // add an employee 
