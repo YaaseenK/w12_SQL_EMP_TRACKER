@@ -56,7 +56,7 @@ const prompMenu = () => {
 
 // view all employes code 
 const viewAllEmployees = () => {
-    console.log('you chose this option')
+    console.log('Here is a list of all employees')
     db.query(`SELECT * FROM employee`, (err, results) => {
         if (err) throw err;
         console.table(results);
@@ -95,7 +95,12 @@ const updateEmployeeRole = () => {
 // view All Roles
 const viewAllRoles = () => {
     console.log('viewing all roles');
-};
+    db.query(`SELECT * FROM role`, (err, results) => {  
+        if (err) throw err;
+        console.table(results);
+        prompMenu();
+    });
+}
 
 
 // addRole
