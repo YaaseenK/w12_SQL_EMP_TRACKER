@@ -112,6 +112,11 @@ const addRole = () => {
 // viewAllDepartments
 const viewAllDepartments = () => {
     console.log('viewing All Departments');
+    db.query(`SELECT * FROM department`, (err, results) => {
+        if (err) throw err;
+        console.table(results);
+        prompMenu();
+})
 };
 
 
