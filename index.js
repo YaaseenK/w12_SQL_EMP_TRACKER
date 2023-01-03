@@ -2,7 +2,7 @@ const inquirer = require('inquirer');
 const mysql = require('mysql2');;
 const db = require('./server');
 
-//Starts mainMenu() when connected
+//Starts prompMenu() when connected
 db.connect(function () {
     console.log(`Connected to the empTracker database!`);
     prompMenu();
@@ -105,7 +105,68 @@ const viewAllRoles = () => {
 
 // addRole
 const addRole = () => {
-    console.log('adding Roll');
+    return inquirer.prompt([
+           {
+            type: 'input',
+            name: 'title',
+            message: 'Enter the title of the role: ',
+            validate: roleInput =>{
+                if (roleInput){
+                    return true;
+                }else {
+                    console.log('Enter the name of the role: ')
+                    return false;
+                }
+            }
+        },
+
+        {
+            type: 'input',
+            name: 'salary',
+            message: 'Enter the salary for the role: ',
+            validate: roleSalary =>{
+                if (roleSalary){
+                    return true;
+                    }else {
+                    console.log('Enter the salary for the role: ')
+                    return false;
+                }
+            }
+        },
+     ])
+     .then( ( { title, salary} ) => {
+        console.log(title , salary);
+        const newRoleInput = [title, salary];
+        const active_department = [];
+        db.query(`SELECT * FROM department`, (err, results) => {
+             results.forEach(({ departmentName , id  }) =>{
+                active_department.push({
+                    name: departmentName,
+                    value: id,
+                })
+            });
+            inquirer
+            .prompt([
+              {
+                type: `list`,
+                name: `department`,
+                message: `What department does this role belong to?`,
+                choices: active_department,
+              },
+            ])
+        .then(({ department }) =>{
+            newRoleInput.push(department);
+            db.query(`INSERT INTO role (title, salary, department_id) VALUES (?,?,?)`,
+                newRoleInput,
+                    (err, results) => {
+                    if (err) throw err;
+                    console.table(results);
+                    viewAllRoles()
+                    }
+                );
+            })
+        });
+    });
 };
 
 
@@ -116,7 +177,7 @@ const viewAllDepartments = () => {
         if (err) throw err;
         console.table(results);
         prompMenu();
-})
+    })
 };
 
 
