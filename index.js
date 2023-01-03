@@ -105,6 +105,7 @@ const viewAllRoles = () => {
 
 // addRole
 const addRole = () => {
+    // inquirer for role name and salary
     return inquirer.prompt([
            {
             type: 'input',
@@ -134,10 +135,13 @@ const addRole = () => {
             }
         },
      ])
+    //  create new role with user input
      .then( ( { title, salary} ) => {
         console.log(title , salary);
         const newRoleInput = [title, salary];
+        // create a variable for current department names in db
         const active_department = [];
+        // get active department from database and add to active_department
         db.query(`SELECT * FROM department`, (err, results) => {
              results.forEach(({ departmentName , id  }) =>{
                 active_department.push({
@@ -145,6 +149,7 @@ const addRole = () => {
                     value: id,
                 })
             });
+            // role is to be added department 
             inquirer
             .prompt([
               {
@@ -155,12 +160,15 @@ const addRole = () => {
               },
             ])
         .then(({ department }) =>{
+            // add data to newRole
             newRoleInput.push(department);
+            // Insert new role into database
             db.query(`INSERT INTO role (title, salary, department_id) VALUES (?,?,?)`,
                 newRoleInput,
                     (err, results) => {
                     if (err) throw err;
                     console.table(results);
+                    // show results in table
                     viewAllRoles()
                     }
                 );
