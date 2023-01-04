@@ -164,7 +164,57 @@ const addEmployee = () => {
 
 // update employee role
 const updateEmployeeRole = () => {
-    console.log('updating employee roll');
+    db.query(`SELECT * FROM employee`, (err, results) => {
+        if (err) throw err;
+        const listOfEmployees = [];
+        results.forEach(({id, first_name, last_name , role_id}) => {
+            listOfEmployees.push({
+                name: `${first_name} ${last_name}`,
+                value: id ,
+            });
+        });
+        inquirer.prompt([
+            {
+                type: 'list',
+                name: 'employee',
+                message: 'Select employee to update: ',
+                choices: listOfEmployees,
+            },
+        ]).then(({employee}) => {
+            let employeeID = employee;
+            console.log(employeeID);
+            
+            db.query('SELECT * FROM role', (err, results) => {
+                if (err) throw err;
+                const active_rolls = [];
+                results.forEach(({title, id}) => {
+                    active_rolls.push({
+                        name: title,
+                        value: id,
+                    });
+                });
+                inquirer.prompt([
+                    {
+                        type: 'list',
+                        name: 'newRoll',
+                        message: 'Select employees new roll: ',
+                        choices: active_rolls,
+                    }, 
+                ]).then(({newRoll}) => {
+                    console.log(newRoll);
+                    console.log(employeeID);
+
+                    db.query(
+                        `UPDATE employee SET role_id = ${newRoll} WHERE id=${employeeID}`, 
+                        (err, results) => {
+                            console.log(results);
+                            viewAllEmployees();
+                        }
+                    );
+                });
+            });
+        });
+    });
 };
 
 // view All Roles
