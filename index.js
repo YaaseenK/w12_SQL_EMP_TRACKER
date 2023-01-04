@@ -23,8 +23,7 @@ const prompMenu = () => {
                         '5) Add Role',
                         '6) View All Departments',
                         '7) Add Department',
-                        '8) Delete departments, roles, or employees',
-                        '9) Exit'
+                        '8) Exit'
                     ]
        }
     ]).then(userChoice => {
@@ -50,10 +49,7 @@ const prompMenu = () => {
             case '7) Add Department':
                 addDepartments()
                 break;
-            case '8) Delete departments, roles, or employees':
-                deleteSomething()
-                break;
-            case '9) Exit':
+            case '8) Exit':
                 exit();
                 break; 
             default:
@@ -62,12 +58,13 @@ const prompMenu = () => {
     });
 }
 
-
 // view all employes code 
 const viewAllEmployees = () => {
     console.log('Here is a list of all employees')
+    // select add entries from employees and store it into results
     db.query(`SELECT * FROM employee`, (err, results) => {
         if (err) throw err;
+        // display results
         console.table(results);
         prompMenu();
     });
@@ -75,6 +72,7 @@ const viewAllEmployees = () => {
 
 // add an employee 
 const addEmployee = () => {
+    // user enters first name
     return inquirer.prompt([
         {
             type:'input',
@@ -89,6 +87,7 @@ const addEmployee = () => {
                 }
             }
         },
+        // user enters last name
         {
             type:'input',
             name: 'lastName',
@@ -102,8 +101,8 @@ const addEmployee = () => {
                     }
             }
         },
-
-    ]).then(({firstName ,lastName}) => {
+            // we take the values 
+    ]).then(({firstName , lastName}) => {
         const newEmployee = [firstName, lastName];
         db.query(`SELECT * FROM role`, (err, results) => {
             if(err) throw err;
@@ -349,7 +348,3 @@ const addDepartments = () => {
 const exit = () => {
     console.log('GoodBye!')
 }
-
-const deleteSomething = () => {
-   
-};
