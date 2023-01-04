@@ -74,20 +74,91 @@ const addEmployee = () => {
     return inquirer.prompt([
         {
             type:'input',
-            name: 'id',
-            message: 'Manager ID: ',
-            validate: idInput => {
-            if (idInput){
+            name: 'firstName',
+            message: 'Enter First Name: ',
+            validate: firstNameInput => {
+            if (firstNameInput){
                 return true;
             }else {
-                console.log('Please enter manager ID: ')
+                console.log('Enter First Name: ')
                 return false;
                 }
             }
         },
-    ]).then(ans => {
-        console.log(ans);
+        {
+            type:'input',
+            name: 'lastName',
+            message: 'Enter Last Name: ',
+            validate: lastNameInput => {
+                if (lastNameInput){
+                    return true;
+                }else {
+                    console.log('Enter Last Name: ')
+                    return false;
+                    }
+            }
+        },
 
+    ]).then(({firstName ,lastName}) => {
+        const newEmployee = [firstName, lastName];
+        db.query(`SELECT * FROM role`, (err, results) => {
+            if(err) throw err;
+            const activeRoles = [];
+            results.forEach(({title, id}) => {
+                activeRoles.push({
+                    name: title,
+                    value: id
+                });
+            });
+            inquirer.prompt([
+                {
+                    type: 'list',
+                    name: 'role',
+                    message: 'Select which role your employee will be added to:',
+                    choices: activeRoles,
+                },
+            ]).then(({role}) => {
+                newEmployee.push(role);
+                console.log(newEmployee);
+
+                db.query(`SELECT * FROM EMPLOYEE`, (err, results) => {
+                    if(err) throw err;
+                    const managers = [
+                        {
+                            name: 'None',
+                            value: null,
+                        },
+                    ];
+                    results.forEach(({ id , first_name, last_name}) => {
+                        managers.push({
+                            name:`${first_name} ${last_name}`,
+                            value: id,
+                        });
+                    });
+                    inquirer.prompt([
+                        {
+                            type: 'list', 
+                            name:'manager',
+                            message: 'Select which manager your employee will be added to:',
+                            choices: managers,
+                        }
+                        ]).then(({manager}) => {
+                        newEmployee.push(manager);
+
+                        db.query(
+                            `INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES(?, ?, ?, ?)`,
+                            newEmployee,
+                            (err, results) => {
+                              if (err) throw err;
+                              console.log(results);
+                              console.log(`The employee has been successfully added!`);
+                              viewAllEmployees();
+                            }
+                        );
+                    })
+                })
+            });
+        });
     }) 
 }
 
