@@ -1,3 +1,4 @@
+const e = require('express');
 const inquirer = require('inquirer');
 const mysql = require('mysql2');;
 const db = require('./server');
@@ -21,7 +22,8 @@ const prompMenu = () => {
                         '4) View All Roles',
                         '5) Add Role',
                         '6) View All Departments',
-                        '7) Add Department'
+                        '7) Add Department',
+                        '8) Delete departments, roles, or employees'
                     ]
        }
     ]).then(userChoice => {
@@ -44,8 +46,11 @@ const prompMenu = () => {
             case '6) View All Departments':
                 viewAllDepartments()
                 break;
-            case '7) View All Departments':
+            case '7) Add Department':
                 addDepartments()
+                break;
+            case '8) Delete departments, roles, or employees':
+                deleteSomething()
                 break;
             default:
             console.log('please choose an option between 1-4')
@@ -91,7 +96,6 @@ const updateEmployeeRole = () => {
     console.log('updating employee roll');
 };
 
-
 // view All Roles
 const viewAllRoles = () => {
     console.log('viewing all roles');
@@ -101,7 +105,6 @@ const viewAllRoles = () => {
         prompMenu();
     });
 }
-
 
 // addRole
 const addRole = () => {
@@ -163,7 +166,8 @@ const addRole = () => {
             // add data to newRole
             newRoleInput.push(department);
             // Insert new role into database
-            db.query(`INSERT INTO role (title, salary, department_id) VALUES (?,?,?)`,
+            db.query(
+                `INSERT INTO role (title, salary, department_id) VALUES (?,?,?)`, 
                 newRoleInput,
                     (err, results) => {
                     if (err) throw err;
@@ -177,7 +181,6 @@ const addRole = () => {
     });
 };
 
-
 // viewAllDepartments
 const viewAllDepartments = () => {
     console.log('viewing All Departments');
@@ -188,8 +191,36 @@ const viewAllDepartments = () => {
     })
 };
 
-
 // addDepartments
 const addDepartments = () => {
-    console.log('adding Department');
+    return inquirer.prompt([
+        {
+            type: 'input',
+            name: 'department',
+            message: 'Enter the name of the department: ',
+            validate: departmentInput =>{
+                if (departmentInput){
+                    return true;
+                }else {
+                    console.log('Enter the name of the department: ');
+                    return false;
+                }
+            },
+        },
+        
+    ]).then(({ department }) => {
+        db.query(
+          `INSERT INTO department (departmentName) VALUES(?)`,
+          department,
+          function (err, results) {
+            if (err) throw err;
+            console.log(results);
+            viewAllDepartments();
+          }
+        );
+      });
+  };
+
+const deleteSomething = () => {
+   
 };
