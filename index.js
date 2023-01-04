@@ -23,7 +23,8 @@ const prompMenu = () => {
                         '5) Add Role',
                         '6) View All Departments',
                         '7) Add Department',
-                        '8) Delete departments, roles, or employees'
+                        '8) Delete departments, roles, or employees',
+                        '9) Exit'
                     ]
        }
     ]).then(userChoice => {
@@ -52,8 +53,11 @@ const prompMenu = () => {
             case '8) Delete departments, roles, or employees':
                 deleteSomething()
                 break;
+            case '9) Exit':
+                exit();
+                break; 
             default:
-            console.log('please choose an option between 1-4')
+            console.log('please choose an option ')
         }
     });
 }
@@ -341,6 +345,10 @@ const addDepartments = () => {
         );
       });
   };
+  
+const exit = () => {
+    console.log('GoodBye!')
+}
 
 const deleteSomething = () => {
    
