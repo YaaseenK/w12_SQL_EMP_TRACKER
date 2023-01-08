@@ -33,10 +33,7 @@
    * npm install
 
   ## Usage:
-    ![list of employees in table view](./public/assets/img/1.png?raw=true "Title")
-  	![list of departments in table view](./public/assets/img/3.png?raw=true "Title")
-  	![list of roles in table view](./public/assets/img/4.png?raw=true "Title")
-  	![adding to the db](./public/assets/img/2.png?raw=true "Title")
+  https://www.youtube.com/watch?v=Y4zFdD7vM_E&t=5s
 
   ## Credits:
    YaaseenK
