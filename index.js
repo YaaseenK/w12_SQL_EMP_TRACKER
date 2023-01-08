@@ -1,16 +1,20 @@
-const e = require('express');
+// node modules imports
+const express = require('express');
 const inquirer = require('inquirer');
 const mysql = require('mysql2');;
 const db = require('./server');
 
-//Starts prompMenu() when connected
+
+// Logs that we are connected to the db and stats the application
 db.connect(function () {
     console.log(`Connected to the empTracker database!`);
     prompMenu();
   });
   
 
+//   prompMENU
 const prompMenu = () => {
+    // inquirer prompts user a list of options
     return inquirer.prompt([
        {
             type: 'list',
@@ -26,6 +30,7 @@ const prompMenu = () => {
                         '8) Exit'
                     ]
        }
+    //    takes user choice and create a switch statement
     ]).then(userChoice => {
         switch (userChoice.menu) {
             case '1) View all employes':
@@ -103,7 +108,9 @@ const addEmployee = () => {
         },
             // we take the values 
     ]).then(({firstName , lastName}) => {
+        // create an newEmployee array with the values  
         const newEmployee = [firstName, lastName];
+        // select everything from role
         db.query(`SELECT * FROM role`, (err, results) => {
             if(err) throw err;
             const activeRoles = [];
@@ -170,7 +177,7 @@ const updateEmployeeRole = () => {
     db.query(`SELECT * FROM employee`, (err, results) => {
         if (err) throw err;
         const listOfEmployees = [];
-        results.forEach(({id, first_name, last_name , role_id}) => {
+        results.forEach(({id, first_name, last_name }) => {
             listOfEmployees.push({
                 name: `${first_name} ${last_name}`,
                 value: id ,
@@ -200,7 +207,7 @@ const updateEmployeeRole = () => {
                     {
                         type: 'list',
                         name: 'newRoll',
-                        message: 'Select employees new roll: ',
+                        message: 'Select employees new role: ',
                         choices: active_rolls,
                     }, 
                 ]).then(({newRoll}) => {
