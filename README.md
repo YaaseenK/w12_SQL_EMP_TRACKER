@@ -2,7 +2,7 @@
   # 12 SQL: Employee Tracker
 
   ## License:
-   Apache 2.0   [![GitHub license](https://img.shields.io/badge/License-Apache%202.0-blue.svg)
+   Apache 2.0   ![GitHub license](https://img.shields.io/badge/License-Apache%202.0-blue.svg)
 
   ## Description 
    * Motivation:
@@ -28,7 +28,7 @@
    nmp install
 
   ## Usage:
-  	![list of emps in table view](./public/assets/img/1.png)
+  	![alt text](./public/assets/img/1.png)
   	![list of departments in table view](./public/assets/img/3.png)
   	![list of roles in table view](./public/assets/img/4.png)
   	![adding to the db](./public/assets/img/2.png)
