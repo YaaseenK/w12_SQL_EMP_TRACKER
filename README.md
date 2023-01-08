@@ -27,7 +27,7 @@
    - You must install the following for this app to function:
    * npm install SQL2
    * npm install express
-   * npm install inquirer
+   * npm install inquirer@8.2.4
    * npm install console.table
    or
    * npm install
