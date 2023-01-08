@@ -33,16 +33,14 @@
    * npm install
 
   ## Usage:
-  https://www.youtube.com/watch?v=Y4zFdD7vM_E&t=5s
-
+   * https://www.youtube.com/watch?v=Y4zFdD7vM_E&t=5s
+   * Run the following commands in your terminal to test this app:
+   * node index.js
+   
   ## Credits:
    YaaseenK
 
-  ## Tests:
-   Run the following commands in your terminal to test this app:
-   node index.js
-
-  ## Contact Info:
+## Contact Info:
    #Github: https://github.com/YaaseenK
    #Email: yaaseenkhan02@gmail.com
 
