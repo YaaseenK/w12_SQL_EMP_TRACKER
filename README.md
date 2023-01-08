@@ -24,16 +24,19 @@
    * [Questions](#questions)
 
   ## Installation:
-   You must install the following for this app to function:
-   npm install SQL2
-   npm install express
-   npm install inquirer
-   npm install console.table
+   - You must install the following for this app to function:
+   * npm install SQL2
+   * npm install express
+   * npm install inquirer
+   * npm install console.table
    or
-   npm install
+   * npm install
 
   ## Usage:
-
+    ![list of employees in table view](./public/assets/img/1.png?raw=true "Title")
+  	![list of departments in table view](./public/assets/img/3.png?raw=true "Title")
+  	![list of roles in table view](./public/assets/img/4.png?raw=true "Title")
+  	![adding to the db](./public/assets/img/2.png?raw=true "Title")
 
   ## Credits:
    YaaseenK
