@@ -1,4 +1,4 @@
-CREATE DATABASE IF EXISTS empTracker_db;
+DROP DATABASE IF EXISTS empTracker_db;
 CREATE DATABASE empTracker_db;
 
 USE empTracker_db;
@@ -26,7 +26,7 @@ CREATE TABLE employee (
     FOREIGN KEY (role_id) 
     REFERENCES role(id),
     FOREIGN KEY (manager_id) 
-    REFERENCES employee(id),
+    REFERENCES employee(id)
     ON DELETE SET NULL
 );
 

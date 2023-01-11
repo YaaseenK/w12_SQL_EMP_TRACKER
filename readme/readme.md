@@ -10,7 +10,7 @@ Because this application won’t be deployed, you’ll also need to create a wal
 
 ```md
 AS A business owner
-I WANT to be able to view and manage the departments, roles, and employees in my company
+To be able to view and manage the departments, roles, and employees in a company
 SO THAT I can organize and plan my business
 ```
 
